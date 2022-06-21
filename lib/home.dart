@@ -79,10 +79,12 @@ class _homeState extends State<home> {
                         color: Colors.black87,
                         child: ElevatedButton(
                           onPressed: () {
+                            Model m1 = Model(
+                                name: txtname.text,
+                                number: txtnumber.text,
+                                photo: f1.path);
 
-                            Model m1 = Model(name: txtname.text,number: txtnumber.text,photo: f1.path);
-
-                            Navigator.pushNamed(context, '/cd',arguments: m1);
+                            Navigator.pushNamed(context, '/cd', arguments: m1);
                           },
                           style:
                               ElevatedButton.styleFrom(primary: Colors.black87),
@@ -95,8 +97,8 @@ class _homeState extends State<home> {
                                   height: 60,
                                   width: 60,
                                   child: CircleAvatar(
-                                      backgroundImage:
-                                          FileImage(File(img[index].toString()))),
+                                      backgroundImage: FileImage(
+                                          File(img[index].toString()))),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -200,10 +202,16 @@ class _homeState extends State<home> {
                       img.add(f1.path);
                     });
                     Navigator.pop(context);
+                    snack();
                   },
                   child: Text("Save")),
             ],
           );
         });
+  }
+
+  void snack()
+  {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Contact Saved")));
   }
 }
