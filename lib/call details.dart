@@ -1,7 +1,11 @@
 import 'dart:io';
 
 import 'package:contact/details.dart';
+import 'package:contact/main.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:share/share.dart';
+
 
 class calldetails extends StatefulWidget {
   const calldetails({Key? key}) : super(key: key);
@@ -11,8 +15,6 @@ class calldetails extends StatefulWidget {
 }
 
 class _calldetailsState extends State<calldetails> {
-
-
   @override
   Widget build(BuildContext context) {
     Model m2 = ModalRoute.of(context)!.settings.arguments as Model;
@@ -29,10 +31,6 @@ class _calldetailsState extends State<calldetails> {
           ),
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
         ),
-
-
-
-
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -57,6 +55,10 @@ class _calldetailsState extends State<calldetails> {
               SizedBox(
                 height: 20,
               ),
+              Text("${m2.number}",style: TextStyle(color: Colors.white60, fontSize: 25),),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 height: 80,
                 width: double.infinity,
@@ -71,14 +73,32 @@ class _calldetailsState extends State<calldetails> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          String number = "tel: ${m2.number}";
+                          print("==========$number");
+                          launchUrl(Uri.parse(number));
+                          //launch("tel:+917862952601");
+                        },
                         icon: Icon(
                           Icons.call,
                           size: 30,
                           color: Colors.deepOrange,
                         )),
+
+                    // ElevatedButton.icon(
+                    //     onPressed: () {
+                    //       String number = "tel: +917862952601";
+                    //       launchUrl(Uri.parse(number));
+                    //     },
+                    //     icon: Icon(Icons.call),
+                    //     label: Text("call")),
+
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          String number = "sms: ${m2.number}";
+                          print("==========$number");
+                          launchUrl(Uri.parse(number));
+                        },
                         icon: Icon(
                           Icons.textsms_outlined,
                           size: 30,
@@ -91,6 +111,11 @@ class _calldetailsState extends State<calldetails> {
                           size: 30,
                           color: Colors.deepOrange,
                         )),
+                    IconButton(onPressed: ()async{
+                      String data = "Testing Shar packages";
+                      Share.share("${m2.number}");
+                    }, icon: Icon(Icons.share,size: 30,
+                      color: Colors.deepOrange,))
                   ],
                 ),
               )

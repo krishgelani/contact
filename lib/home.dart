@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:contact/details.dart';
+import 'package:contact/main.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,30 +19,55 @@ class _homeState extends State<home> {
 
   String cname = "";
   String cnumber = "";
-  List name = [""];
-  List contact = [""];
-  List img = [""];
+  List name = ["krish"];
+  List contact = ["7862952601"];
+  List img = ["asset/image/thomas shelby.jpg"];
+
+  Color c1 = Colors.white;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black87,
+        //backgroundColor: Colors.black87,
         appBar: AppBar(
-          backgroundColor: Colors.deepOrange,
           title: Text("Contacts"),
           actions: [
             IconButton(onPressed: () {}, icon: Icon(Icons.search)),
             SizedBox(
-              width: 5,
+              width: 13,
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.sort)),
+            // InkWell(
+            //   onTap: (){
+            //     setState(() {
+            //       if(c1 == Colors.white)
+            //         {
+            //           c1 = Colors.black;
+            //         }
+            //       else if(c1 == Colors.black)
+            //         {
+            //           c1 = Colors.white;
+            //         }
+            //
+            //       themeData =
+            //     });
+            //   },
+            //   child: Container(
+            //     height: 33,
+            //     width: 33,
+            //     decoration: BoxDecoration(color: c1,shape: BoxShape.circle),
+            //   ),
+            // ),
+
+            Switch(value: themeData, onChanged: (value){
+              setState(() {
+                themeData = value;
+              });
+              data.add(themeData);
+            }),
+
             SizedBox(
-              width: 5,
-            ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.filter_list)),
-            SizedBox(
-              width: 5,
+              width: 15,
             ),
             PopupMenuButton(
                 itemBuilder: (context) {
@@ -65,8 +91,6 @@ class _homeState extends State<home> {
                 child: Icon(Icons.more_vert)),
           ],
         ),
-
-
         body: Stack(
           children: [
             ListView.builder(
@@ -77,7 +101,7 @@ class _homeState extends State<home> {
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Card(
-                        color: Colors.black87,
+                        color: Colors.transparent,
                         child: ElevatedButton(
                           onPressed: () {
                             Model m1 = Model(
@@ -88,7 +112,7 @@ class _homeState extends State<home> {
                             Navigator.pushNamed(context, '/cd', arguments: m1);
                           },
                           style:
-                              ElevatedButton.styleFrom(primary: Colors.black87),
+                              ElevatedButton.styleFrom(primary: Colors.transparent),
                           child: Container(
                             height: 80,
                             margin: EdgeInsets.only(left: 10, right: 10),
@@ -125,7 +149,6 @@ class _homeState extends State<home> {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
-                  backgroundColor: Colors.deepOrange,
                   onPressed: () {
                     dialog();
                     txtname.clear();
