@@ -24,6 +24,8 @@ class _homeState extends State<home> {
   List img = ["asset/image/thomas shelby.jpg"];
 
   Color c1 = Colors.white;
+  Color c2 = Colors.black;
+  Color c3 = Colors.black;
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +61,23 @@ class _homeState extends State<home> {
             //   ),
             // ),
 
-            Switch(value: themeData, onChanged: (value){
-              setState(() {
-                themeData = value;
-              });
-              data.add(themeData);
-            }),
+            Switch(
+                value: themeData,
+                onChanged: (value) {
+                  setState(() {
+                    themeData = value;
+                    if (themeData == true) {
+                      c1 = Colors.white;
+                      c2 = Colors.black;
+                      c3 = Colors.black;
+                    } else if (themeData == false) {
+                      c1 = Colors.black;
+                      c2 = Colors.white;
+                      c3 = Colors.deepOrange;
+                    }
+                  });
+                  data.add(themeData);
+                }),
 
             SizedBox(
               width: 15,
@@ -91,6 +104,7 @@ class _homeState extends State<home> {
                 child: Icon(Icons.more_vert)),
           ],
         ),
+
         body: Stack(
           children: [
             ListView.builder(
@@ -101,18 +115,21 @@ class _homeState extends State<home> {
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Card(
-                        color: Colors.transparent,
+                        elevation: 0,
                         child: ElevatedButton(
                           onPressed: () {
                             Model m1 = Model(
-                                name: name[index],
-                                number: contact[index],
-                                photo: img[index]);
+                              name: name[index],
+                              number: contact[index],
+                              photo: img[index],
+                              co1: c1,
+                              co2: c2,
+                              co3: c3,
+                            );
 
                             Navigator.pushNamed(context, '/cd', arguments: m1);
                           },
-                          style:
-                              ElevatedButton.styleFrom(primary: Colors.transparent),
+                          style: ElevatedButton.styleFrom(primary: c1),
                           child: Container(
                             height: 80,
                             margin: EdgeInsets.only(left: 10, right: 10),
@@ -131,8 +148,7 @@ class _homeState extends State<home> {
                                 ),
                                 Text(
                                   "${name[index]}",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
+                                  style: TextStyle(color: c2, fontSize: 25),
                                 ),
                               ],
                             ),

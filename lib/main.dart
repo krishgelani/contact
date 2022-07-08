@@ -8,12 +8,21 @@ bool themeData = true;
 StreamController<bool> data = StreamController();
 
 void main() {
-  ThemeData dark =
-      ThemeData(primarySwatch: Colors.deepOrange
-          ,backgroundColor: Colors.black,primaryColor: Colors.amber,scaffoldBackgroundColor: Colors.black);
 
-  ThemeData light =
-      ThemeData(primarySwatch: Colors.red, brightness: Brightness.light,backgroundColor: Colors.white);
+
+  ThemeData dark = ThemeData(
+      primarySwatch: Colors.deepOrange,
+      backgroundColor: Colors.black,
+      primaryColor: Colors.amber,
+      scaffoldBackgroundColor: Colors.black
+  );
+
+
+  ThemeData light = ThemeData(
+    // appBarTheme: AppBarTheme(backgroundColor: Colors.indigo),
+    backgroundColor: Colors.white,
+    primarySwatch: Colors.indigo
+  );
 
   runApp(
     StreamBuilder(
@@ -21,7 +30,7 @@ void main() {
       initialData: true,
       builder: (context, snapshot) {
         return MaterialApp(
-          theme: snapshot.data == true? light:dark,
+          theme: snapshot.data == true ? light : dark,
           debugShowCheckedModeBanner: false,
           routes: {
             '/': (context) => home(),
