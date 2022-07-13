@@ -39,28 +39,6 @@ class _homeState extends State<home> {
             SizedBox(
               width: 13,
             ),
-            // InkWell(
-            //   onTap: (){
-            //     setState(() {
-            //       if(c1 == Colors.white)
-            //         {
-            //           c1 = Colors.black;
-            //         }
-            //       else if(c1 == Colors.black)
-            //         {
-            //           c1 = Colors.white;
-            //         }
-            //
-            //       themeData =
-            //     });
-            //   },
-            //   child: Container(
-            //     height: 33,
-            //     width: 33,
-            //     decoration: BoxDecoration(color: c1,shape: BoxShape.circle),
-            //   ),
-            // ),
-
             Switch(
                 value: themeData,
                 onChanged: (value) {
@@ -78,7 +56,6 @@ class _homeState extends State<home> {
                   });
                   data.add(themeData);
                 }),
-
             SizedBox(
               width: 15,
             ),
@@ -114,44 +91,44 @@ class _homeState extends State<home> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(5.0),
-                      child: Card(
-                        elevation: 0,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Model m1 = Model(
-                              name: name[index],
-                              number: contact[index],
-                              photo: img[index],
-                              co1: c1,
-                              co2: c2,
-                              co3: c3,
-                            );
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Model m1 = Model(
+                            name: name[index],
+                            number: contact[index],
+                            photo: img[index],
+                            co1: c1,
+                            co2: c2,
+                            co3: c3,
+                          );
 
-                            Navigator.pushNamed(context, '/cd', arguments: m1);
-                          },
-                          style: ElevatedButton.styleFrom(primary: c1),
-                          child: Container(
-                            height: 80,
-                            margin: EdgeInsets.only(left: 10, right: 10),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  child: CircleAvatar(
-                                      backgroundColor: Colors.black87,
-                                      backgroundImage: FileImage(
-                                          File(img[index].toString()))),
+                          Navigator.pushNamed(context, '/cd', arguments: m1);
+                        },
+                        style:
+                            ElevatedButton.styleFrom(primary: c1, elevation: 0),
+                        child: Container(
+                          height: 80,
+                          margin: EdgeInsets.only(left: 10, right: 10),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 60,
+                                width: 60,
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.black87,
+                                  backgroundImage: FileImage(
+                                    File(img[index].toString()),
+                                  ),
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "${name[index]}",
-                                  style: TextStyle(color: c2, fontSize: 25),
-                                ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "${name[index]}",
+                                style: TextStyle(color: c2, fontSize: 25),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -261,5 +238,38 @@ class _homeState extends State<home> {
   void snack() {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("Contact Saved")));
+  }
+}
+
+class NameIcon extends StatelessWidget {
+  final String firstName;
+  final Color backgroundColor;
+  final Color textColor;
+
+  const NameIcon({
+    Key? key,
+    required this.firstName,
+    this.backgroundColor = Colors.white,
+    this.textColor = Colors.black,
+  }) : super(key: key);
+
+  String get firstLetter => this.firstName.substring(0, 1).toUpperCase();
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.contain,
+      alignment: Alignment.center,
+      child: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: this.backgroundColor,
+          border: Border.all(color: Colors.black, width: 0.5),
+        ),
+        padding: EdgeInsets.all(8.0),
+        child: Text(this.firstLetter, style: TextStyle(color: this.textColor)),
+      ),
+    );
   }
 }
